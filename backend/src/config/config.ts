@@ -10,7 +10,7 @@ interface IConfig {
 
 const config: IConfig = {
     port: Number(process.env.PORT) || 3000,
-    nodeEnv: process.env.NODE_ENV ?? 'development',
+    nodeEnv: process.env.NODE_ENV || 'development',
 };
 
 export default config;
