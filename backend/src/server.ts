@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import config from './config/config';
+import { markerRouter } from './routes/marker.route';
 
 const app = express();
 
@@ -17,6 +18,8 @@ app.use(morgan('dev'));
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
+
+app.use('/api/markers', markerRouter);
 
 // Start the server
 app.listen(config.port, () => {
