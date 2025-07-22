@@ -5,6 +5,9 @@ import { markerRouter } from './routes/marker.route';
 import mongoose from 'mongoose';
 import mongoDbStore from 'connect-mongo';
 import session from 'express-session';
+import passport from 'passport';
+import { User } from './models/user.model';
+import { Strategy as LocalStrategy } from 'passport-local';
 
 async function startServer() {
     try {
@@ -51,6 +54,16 @@ async function startServer() {
     app.use(morgan('dev'));
     // Tell the server to use the session middleware.
     app.use(session(sessionOptions));
+
+    // Auth configuration
+    // Use the LocalStrategy for user authentication with email and password
+    passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, User.authenticate()));
+    // @ts-ignore - When a user is authenticated, serialise the user to the session
+    passport.serializeUser(User.serializeUser());
+    // When a user logs out, deserialise the user from the session
+    passport.deserializeUser(User.deserializeUser());
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     // Routes
     app.get('/', (req, res) => {
