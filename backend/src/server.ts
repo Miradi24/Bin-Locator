@@ -8,6 +8,7 @@ import session from 'express-session';
 import passport from 'passport';
 import { User } from './models/user.model';
 import { Strategy as LocalStrategy } from 'passport-local';
+import { authRouter } from './routes/auth.route';
 
 async function startServer() {
     try {
@@ -72,6 +73,7 @@ async function startServer() {
 
     // Register the marker router for handling marker related API requests
     app.use('/api/markers', markerRouter);
+    app.use('/api/auth', authRouter);
 
     // Start the server
     app.listen(config.port, () => {
