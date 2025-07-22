@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 
 // An interface representing the structure of a marker
-export interface IMarker {
+export interface IMarker extends Document {
     coordinate: {
         latitude: number;
         longitude: number;

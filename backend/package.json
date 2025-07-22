@@ -14,6 +14,8 @@
     "@types/express": "^5.0.3",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.0.13",
+    "@types/passport": "^1.0.17",
+    "@types/passport-local": "^1.0.38",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "install": "^0.13.0",
@@ -24,6 +26,9 @@
   },
   "dependencies": {
     "mongoose": "^8.16.4",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^8.0.0"
   }
 }
