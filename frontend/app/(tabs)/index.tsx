@@ -1,15 +1,24 @@
 import AddMarkerModal from '@/components/AddMarkerModal';
 import MarkerOptionsModal from '@/components/MarkerOptionsModal';
 import { Coordinates } from '@/constants/coordinates';
+import { useAuth } from '@/context/auth';
 import { IMarker } from '@/types/map';
 import { generateRandomMarkers } from '@/utils/mapUtils';
 import * as Location from 'expo-location';
+import { Redirect } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, useColorScheme, View } from 'react-native';
 import MapView, { LatLng, MapPressEvent, Marker, MarkerPressEvent, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 
 export default function App() {
+    const { isAuthenticated } = useAuth();
+
+    // If user is not authenticated, redirect to login page
+    if (!isAuthenticated) {
+        return <Redirect href='/login' />;
+    }
+
     // Get the current color scheme (light or dark)
     const colorScheme = useColorScheme();
 

@@ -9,6 +9,11 @@ import { IMarker, Marker } from "../models/marker.model";
 export async function createMarker(req: Request, res: Response) {
     const { coordinate, title } = req.body as IMarker;
 
+    // Only allow authenticated users to create markers
+    if (!req.isAuthenticated()) {
+        return res.status(401).json({ msg: "Unauthorized" });
+    }
+
     // Validate the request body
     if (!coordinate || !title) {
         return res.status(400).json({ error: "Coordinate and title are required" });
