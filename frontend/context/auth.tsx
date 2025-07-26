@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useMemo } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 // Create an axios instance
 const api = axios.create({
@@ -24,6 +24,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const login = async (email: string, password: string) => {
+        try {
+            // Send the login data to the backend
+            const response = await api.post('/auth/login', { email, password });
+            // If login is successful, set the authenticated state
+            if (response.status === 200) {
+                setIsAuthenticated(true);
+            }
+        } catch (error) {
+            console.error('Login failed:', error);
+            throw error;
+        }
         setIsAuthenticated(true);
     };
 

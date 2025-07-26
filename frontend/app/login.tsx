@@ -12,9 +12,19 @@ export default function LoginScreen() {
     const { login } = useAuth();
 
     const handleLogin = async () => {
-        await login(email, password);
-        // Redirect to the home page after successful login
-        router.replace('/');
+        // Input validation
+        if (!email || !password) {
+            alert('Email and password are required');
+            return;
+        }
+        try {
+            await login(email, password);
+            // Redirect to the home page after successful login
+            router.replace('/');
+        } catch (error) {
+            alert('Login failed: ' + error);
+            return;
+        }
     };
 
     return (
@@ -30,6 +40,7 @@ export default function LoginScreen() {
                     value={email}
                     onChangeText={setEmail}
                     keyboardType='email-address'
+                    autoCapitalize='none'
                 />
                 <TextInput
                     placeholderTextColor='#999'

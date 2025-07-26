@@ -1,5 +1,5 @@
 import passport from "passport";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { IUser, User } from "../models/user.model";
 
 export function login(req: Request, res: Response) {
