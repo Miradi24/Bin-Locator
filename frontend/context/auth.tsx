@@ -1,4 +1,13 @@
 import { createContext, useContext, useState, ReactNode, useMemo } from 'react';
+import axios from 'axios';
+
+// Create an axios instance
+const api = axios.create({
+    baseURL: 'http://localhost:3000/api',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
 
 // The context type defines the structure of the authentication state and methods
 interface AuthContextType {
@@ -19,6 +28,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     const register = async (email: string, password: string) => {
+        try {
+            // Send the registration data to the backend
+            const response = await api.post('/auth/register', { email, password });
+            // If registration is successful, set the authenticated state
+            if (response.status === 201) {
+                setIsAuthenticated(true);
+            }
+        } catch (error) {
+            console.error('Registration failed:', error);
+            throw error;
+        }
         setIsAuthenticated(true);
     };
 

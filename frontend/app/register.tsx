@@ -13,21 +13,25 @@ export default function RegisterScreen() {
     const { register } = useAuth();
 
     const handleRegister = async () => {
-        // Input validation
-        if (!email || !password || !confirmPassword) {
-            alert('Email and password are required');
-            return;
-        }
+        try {
+            // Input validation
+            if (!email || !password || !confirmPassword) {
+                alert('Email and password are required');
+                return;
+            }
 
-        // Check if passwords match
-        if (password !== confirmPassword) {
-            alert('Passwords do not match');
-            return;
-        }
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
 
-        await register(email, password);
-        // Redirect to the home page after successful registration
-        router.replace('/');
+            await register(email, password);
+            // Redirect to the home page after successful registration
+            router.replace('/');
+        } catch (error) {
+            alert('Registration failed: ' + error);
+        }
     };
 
     return (
@@ -43,6 +47,7 @@ export default function RegisterScreen() {
                     value={email}
                     onChangeText={setEmail}
                     keyboardType='email-address'
+                    autoCapitalize='none'
                 />
                 <TextInput
                     placeholderTextColor='#999'

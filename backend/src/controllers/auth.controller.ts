@@ -31,7 +31,7 @@ export function login(req: Request, res: Response) {
     })(req, res);
 }
 
-export async function register(req: Request, res: Response, next: NextFunction) {
+export async function register(req: Request, res: Response) {
     try {
         const { email, password } = req.body;
 
