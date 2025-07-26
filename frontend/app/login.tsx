@@ -24,6 +24,7 @@ export default function LoginScreen() {
             <ThemedView style={styles.container}>
                 <ThemedText style={styles.title}>Login</ThemedText>
                 <TextInput
+                    placeholderTextColor='#999'
                     style={styles.input}
                     placeholder='Email'
                     value={email}
@@ -31,6 +32,7 @@ export default function LoginScreen() {
                     keyboardType='email-address'
                 />
                 <TextInput
+                    placeholderTextColor='#999'
                     style={styles.input}
                     placeholder='Password'
                     value={password}

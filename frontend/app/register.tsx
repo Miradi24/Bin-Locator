@@ -13,6 +13,18 @@ export default function RegisterScreen() {
     const { register } = useAuth();
 
     const handleRegister = async () => {
+        // Input validation
+        if (!email || !password || !confirmPassword) {
+            alert('Email and password are required');
+            return;
+        }
+
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
         await register(email, password);
         // Redirect to the home page after successful registration
         router.replace('/');
@@ -25,6 +37,7 @@ export default function RegisterScreen() {
             <ThemedView style={styles.container}>
                 <ThemedText style={styles.title}>Register</ThemedText>
                 <TextInput
+                    placeholderTextColor='#999'
                     style={styles.input}
                     placeholder='Email'
                     value={email}
@@ -32,6 +45,7 @@ export default function RegisterScreen() {
                     keyboardType='email-address'
                 />
                 <TextInput
+                    placeholderTextColor='#999'
                     style={styles.input}
                     placeholder='Password'
                     value={password}
@@ -39,6 +53,7 @@ export default function RegisterScreen() {
                     secureTextEntry
                 />
                 <TextInput
+                    placeholderTextColor='#999'
                     style={styles.input}
                     placeholder='Confirm Password'
                     value={confirmPassword}
