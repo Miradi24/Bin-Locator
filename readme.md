@@ -17,7 +17,7 @@ Bin Locator is a mobile application designed to help users locate the nearest bi
 
 ---
 
-# 🛠️ Installation & Setup
+## 🛠️ Installation & Setup
 
 ### ⚙️ Environment Variables
 

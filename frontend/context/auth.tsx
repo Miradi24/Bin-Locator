@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useMemo } from 'react';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 // Create an axios instance
 const api = axios.create({

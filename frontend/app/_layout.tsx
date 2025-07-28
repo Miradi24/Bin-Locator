@@ -6,6 +6,7 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { AuthProvider } from '@/context/auth';
+import { MarkerProvider } from '@/context/marker';
 
 export default function RootLayout() {
     const colorScheme = useColorScheme();
@@ -20,13 +21,15 @@ export default function RootLayout() {
 
     return (
         <AuthProvider>
-            <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-                <Stack>
-                    <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-                    <Stack.Screen name='+not-found' />
-                </Stack>
-                <StatusBar style='auto' />
-            </ThemeProvider>
+            <MarkerProvider>
+                <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+                    <Stack>
+                        <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+                        <Stack.Screen name='+not-found' />
+                    </Stack>
+                    <StatusBar style='auto' />
+                </ThemeProvider>
+            </MarkerProvider>
         </AuthProvider>
     );
 }
