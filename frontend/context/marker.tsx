@@ -1,6 +1,6 @@
 import { IMarker } from '@/types/map';
 import axios from 'axios';
-import { createContext, ReactNode, useState, useMemo, useEffect } from 'react';
+import { createContext, ReactNode, useState, useMemo, useEffect, useContext } from 'react';
 
 // Create an axios instance
 const api = axios.create({
@@ -13,7 +13,7 @@ const api = axios.create({
 // The context type defines the structure of the marker state and methods
 interface MarkerContextType {
     markers: IMarker[];
-    addMarker: (marker: IMarker) => Promise<void>;
+    addMarker: (marker: Partial<IMarker>) => Promise<void>;
 }
 
 const MarkerContext = createContext<MarkerContextType | null>(null);
@@ -51,7 +51,10 @@ export function MarkerProvider({ children }: { children: ReactNode }) {
             const response = await api.post('/markers', marker);
             // If successful, update the markers state
             if (response.status === 201) {
-                setMarkers((prevMarkers) => [...prevMarkers, response.data]);
+                setMarkers((prevMarkers) => [
+                    ...prevMarkers,
+                    { coordinate: response.data.coordinate, title: response.data.title, id: response.data._id },
+                ]);
             }
         } catch (error) {
             console.error('Failed to add marker:', error);
@@ -63,4 +66,14 @@ export function MarkerProvider({ children }: { children: ReactNode }) {
     const value = useMemo(() => ({ markers, addMarker }), [markers]);
 
     return <MarkerContext.Provider value={value}>{children}</MarkerContext.Provider>;
+}
+
+// Custom hook to use the marker context
+// This allows components to access the marker state and methods easily
+export function useMarker() {
+    const context = useContext(MarkerContext);
+    if (!context) {
+        throw new Error('useMarker must be used within a MarkerProvider');
+    }
+    return context;
 }

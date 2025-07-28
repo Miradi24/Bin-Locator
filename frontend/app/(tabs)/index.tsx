@@ -2,8 +2,8 @@ import AddMarkerModal from '@/components/AddMarkerModal';
 import MarkerOptionsModal from '@/components/MarkerOptionsModal';
 import { Coordinates } from '@/constants/coordinates';
 import { useAuth } from '@/context/auth';
+import { useMarker } from '@/context/marker';
 import { IMarker } from '@/types/map';
-import { generateRandomMarkers } from '@/utils/mapUtils';
 import * as Location from 'expo-location';
 import { Redirect } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -25,7 +25,7 @@ export default function App() {
     // State to hold the initial region of the map
     const [initialRegion, setInitialRegion] = useState<Region | null>();
     // State to hold the markers on the map
-    const [markers, setMarkers] = useState<IMarker[]>([]);
+    const { markers, addMarker } = useMarker();
     // State to control the visibility of the modal
     const [isAddModalVisible, setIsAddModalVisible] = useState(false);
     // State to control the visibility of the marker options modal
@@ -54,9 +54,6 @@ export default function App() {
                 latitudeDelta: Coordinates.latitudeDelta,
                 longitudeDelta: Coordinates.longitudeDelta,
             });
-            // Generate random markers around the current location
-            const randomMarkers = generateRandomMarkers(location.coords.latitude, location.coords.longitude, 4);
-            setMarkers(randomMarkers);
         })();
     }, []);
 
@@ -73,16 +70,12 @@ export default function App() {
         setIsMarkerOptionsModalVisible(true);
     }
 
-    function handleAddMarker(title: string) {
+    async function handleAddMarker(title: string) {
         if (tempCoordinate) {
-            setMarkers((prev) => [
-                ...prev,
-                {
-                    coordinate: tempCoordinate,
-                    id: `${Date.now()}-${Math.random()}`,
-                    title,
-                },
-            ]);
+            await addMarker({
+                coordinate: tempCoordinate,
+                title,
+            });
             setIsAddModalVisible(false);
             setTempCoordinate(null);
         }
