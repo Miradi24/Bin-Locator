@@ -127,7 +127,7 @@ export default function App() {
                         destination={currentMarker?.coordinate}
                         strokeWidth={3}
                         strokeColor='blue'
-                        apikey='AIzaSyAhtwU8oYSEkJzilkiVeKI4H3EDtS5OLtA'
+                        apikey={process.env.EXPO_GOOGLE_MAPS_API_KEY || ''}
                     />
                 )}
             </MapView>

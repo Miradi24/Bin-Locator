@@ -21,13 +21,19 @@ Bin Locator is a mobile application designed to help users locate the nearest bi
 
 ### ⚙️ Environment Variables
 
-Create **.env** file in backend/ and set the following variables
+Create **.env** file in **backend/** and set the following variables
 
 ```
 PORT=
 NODE_ENV=
 DATABASE_URL=
 COOKIE_SECRET=
+```
+
+Create **.env** file in **frontend/** and set the following variables
+
+```
+EXPO_GOOGLE_MAPS_API_KEY=
 ```
 
 ### 🔧 Set up the backend
