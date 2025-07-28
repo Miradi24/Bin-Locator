@@ -7,8 +7,8 @@ export function login(req: Request, res: Response) {
         // If an error occurred during authentication, or if no user was found return a 500 status code with an error message.
         if (err || !user) {
             return res.status(500).json({
-                msg: 'Authentication failed',
-                error: err || info.message
+                msg: info.message || 'Authentication failed',
+                error: err
             });
         }
 
@@ -54,7 +54,7 @@ export async function register(req: Request, res: Response) {
         req.logIn(newUser, (err) => {
             if (err) {
                 return res.status(500).json({
-                    msg: 'Regestration successful bur login failed',
+                    msg: 'Regestration successful but login failed',
                     error: err.message
                 });
             }

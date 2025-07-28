@@ -24,33 +24,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const login = async (email: string, password: string) => {
-        try {
-            // Send the login data to the backend
-            const response = await api.post('/auth/login', { email, password });
-            // If login is successful, set the authenticated state
-            if (response.status === 200) {
-                setIsAuthenticated(true);
-            }
-        } catch (error) {
-            console.error('Login failed:', error);
-            throw error;
+        // Send the login data to the backend
+        const response = await api.post('/auth/login', { email, password });
+        // If login is successful, set the authenticated state
+        if (response.status === 200) {
+            setIsAuthenticated(true);
         }
-        setIsAuthenticated(true);
     };
 
     const register = async (email: string, password: string) => {
-        try {
-            // Send the registration data to the backend
-            const response = await api.post('/auth/register', { email, password });
-            // If registration is successful, set the authenticated state
-            if (response.status === 201) {
-                setIsAuthenticated(true);
-            }
-        } catch (error) {
-            console.error('Registration failed:', error);
-            throw error;
+        // Send the registration data to the backend
+        const response = await api.post('/auth/register', { email, password });
+        // If registration is successful, set the authenticated state
+        if (response.status === 201) {
+            setIsAuthenticated(true);
         }
-        setIsAuthenticated(true);
     };
 
     const logout = () => setIsAuthenticated(false);

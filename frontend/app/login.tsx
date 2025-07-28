@@ -22,7 +22,8 @@ export default function LoginScreen() {
             // Redirect to the home page after successful login
             router.replace('/');
         } catch (error) {
-            alert('Login failed: ' + error);
+            // @ts-ignore
+            alert('Login failed: ' + error.response?.data?.msg || error.message);
             return;
         }
     };

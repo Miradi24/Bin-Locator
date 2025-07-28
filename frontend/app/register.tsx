@@ -29,7 +29,8 @@ export default function RegisterScreen() {
             // Redirect to the home page after successful registration
             router.replace('/');
         } catch (error) {
-            alert('Registration failed: ' + error);
+            // @ts-ignore
+            alert('Registration failed: ' + error.response?.data?.msg || error.message);
         }
     };
 
