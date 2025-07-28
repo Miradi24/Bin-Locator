@@ -12,6 +12,12 @@ export default function AddMarkerModal({ visible, onClose, onSubmit, defaultValu
     const [title, setTitle] = useState(defaultValue);
 
     const handleSubmit = () => {
+        // Check if title is empty
+        if (title.length === 0) {
+            alert('Title cannot be empty');
+            return;
+        }
+        // Trim whitespace and check if title is not just spaces
         if (title.trim()) {
             onSubmit(title);
             setTitle('');
