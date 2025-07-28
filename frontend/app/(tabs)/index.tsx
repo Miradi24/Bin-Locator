@@ -72,12 +72,20 @@ export default function App() {
 
     async function handleAddMarker(title: string) {
         if (tempCoordinate) {
-            await addMarker({
-                coordinate: tempCoordinate,
-                title,
-            });
-            setIsAddModalVisible(false);
-            setTempCoordinate(null);
+            try {
+                await addMarker({
+                    coordinate: tempCoordinate,
+                    title,
+                });
+                setIsAddModalVisible(false);
+                setTempCoordinate(null);
+            } catch (error) {
+                // Handle error if marker addition fails
+                // @ts-ignore
+                console.error('Failed to add marker:', error.response?.data?.msg || error.message);
+                // @ts-ignore
+                alert('Failed to add marker:x ' + error.response?.data?.msg || error.message);
+            }
         }
     }
 

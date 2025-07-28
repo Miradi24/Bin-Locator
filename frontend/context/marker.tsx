@@ -46,19 +46,14 @@ export function MarkerProvider({ children }: { children: ReactNode }) {
 
     // Because we don't need an id when adding a new marker, we can use Partial<IMarker>
     const addMarker = async (marker: Partial<IMarker>) => {
-        try {
-            // Send the marker data to the backend
-            const response = await api.post('/markers', marker);
-            // If successful, update the markers state
-            if (response.status === 201) {
-                setMarkers((prevMarkers) => [
-                    ...prevMarkers,
-                    { coordinate: response.data.coordinate, title: response.data.title, id: response.data._id },
-                ]);
-            }
-        } catch (error) {
-            console.error('Failed to add marker:', error);
-            throw error;
+        // Send the marker data to the backend
+        const response = await api.post('/markers', marker);
+        // If successful, update the markers state
+        if (response.status === 201) {
+            setMarkers((prevMarkers) => [
+                ...prevMarkers,
+                { coordinate: response.data.coordinate, title: response.data.title, id: response.data._id },
+            ]);
         }
     };
 
