@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create an axios instance
 const api = axios.create({
-    baseURL: 'http://localhost:3000/api',
+    baseURL: process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000/api',
     headers: {
         'Content-Type': 'application/json',
     },

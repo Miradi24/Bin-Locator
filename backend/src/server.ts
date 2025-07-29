@@ -76,7 +76,7 @@ async function startServer() {
     app.use('/api/auth', authRouter);
 
     // Start the server
-    app.listen(config.port, () => {
+    app.listen(config.port, '0.0.0.0', () => {
         console.log(`Server is running on http://localhost:${config.port} in ${config.nodeEnv} mode`);
     });
 }
