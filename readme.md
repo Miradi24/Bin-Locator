@@ -33,7 +33,8 @@ COOKIE_SECRET=
 Create **.env** file in **frontend/** and set the following variables
 
 ```
-EXPO_GOOGLE_MAPS_API_KEY=
+EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=
+EXPO_PUBLIC_API_URL=
 ```
 
 ### 🔧 Set up the backend
