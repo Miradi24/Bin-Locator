@@ -1,7 +1,7 @@
 import { useAuth } from '@/context/auth';
-import { Link, router, Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { useState } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
@@ -51,14 +51,14 @@ export default function LoginScreen() {
                     onChangeText={setPassword}
                     secureTextEntry
                 />
-                <ThemedView style={styles.button} onTouchEnd={handleLogin}>
+                <TouchableOpacity style={styles.button} onPress={handleLogin}>
                     <ThemedText style={styles.buttonText}>Login</ThemedText>
-                </ThemedView>
-                <Link href='/register'>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => router.push('/register')}>
                     <ThemedView style={styles.link}>
                         <ThemedText>Don't have an account? Register</ThemedText>
                     </ThemedView>
-                </Link>
+                </TouchableOpacity>
             </ThemedView>
         </>
     );
