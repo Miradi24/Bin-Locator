@@ -10,14 +10,17 @@ import { User } from './models/user.model';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { authRouter } from './routes/auth.route';
 
-async function startServer() {
-    try {
-        await mongoose.connect(config.databaseUrl);
-        console.log('Database connected successfully');
-    } catch (error) {
-        console.error('Database connection failed:', error);
-        // Stop the whole application if the database connection fails
-        process.exit(1);
+export async function startServer(isTest = false) {
+    // Dont connect to the database if running tests
+    if (!isTest) {
+        try {
+            await mongoose.connect(config.databaseUrl);
+            console.log('Database connected successfully');
+        } catch (error) {
+            console.error('Database connection failed:', error);
+            // Stop the whole application if the database connection fails
+            process.exit(1);
+        }
     }
 
     const app = express();
@@ -75,10 +78,18 @@ async function startServer() {
     app.use('/api/markers', markerRouter);
     app.use('/api/auth', authRouter);
 
-    // Start the server
-    app.listen(config.port, '0.0.0.0', () => {
-        console.log(`Server is running on http://localhost:${config.port} in ${config.nodeEnv} mode`);
-    });
+    // Don't start the server if running tests
+    if (!isTest) {
+        // Start the server
+        app.listen(config.port, '0.0.0.0', () => {
+            console.log(`Server is running on http://localhost:${config.port} in ${config.nodeEnv} mode`);
+        });
+    }
+    // Return the app instance for testing purposes
+    return app;
 }
 
-startServer();
+// If this file is run directly, start the server
+if (require.main === module) {
+    startServer();
+}
