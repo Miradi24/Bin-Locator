@@ -33,7 +33,7 @@ describe('Authentication', () => {
 
             expect(response.status).toBe(201);
             expect(response.body.user).toHaveProperty('id');
-            expect(response.body.user).toHaveProperty('email');
+            expect(response.body.user).toHaveProperty('email', 'testuser@gmail.com');
         });
 
         it('/auth/register - should not register a new user with existing email', async () => {
@@ -50,6 +50,44 @@ describe('Authentication', () => {
             expect(response.body).toMatchObject(expect.objectContaining({
                 msg: 'Email already exists'
             }));
+        });
+    });
+
+    describe('Login', () => {
+        beforeAll(async () => {
+            // Register a new user before testing login
+            const response = await request(app)
+                .post('/api/auth/register')
+                .send({
+                    email: 'testuser@gmail.com',
+                    password: 'password123'
+                });
+        });
+
+        it('/auth/login - should login with valid credentials', async () => {
+            const response = await request(app)
+                .post('/api/auth/login')
+                .send({
+                    email: 'testuser@gmail.com',
+                    password: 'password123'
+                });
+
+            expect(response.status).toBe(200);
+            expect(response.body.user).toHaveProperty('id');
+            expect(response.body.user).toHaveProperty('email', 'testuser@gmail.com');
+        });
+
+        it('/auth/login - should not login with invalid credentials', async () => {
+            const response = await request(app)
+                .post('/api/auth/login')
+                .send({
+                    email: 'invaliduser@gmail.com',
+                    password: 'password123'
+                });
+
+            expect(response.status).toBe(500);
+            expect(response.body).toHaveProperty('msg', 'Password or username is incorrect');
+
         });
     });
 });
