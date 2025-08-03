@@ -61,3 +61,10 @@ npx expo start
 cd backend
 npm run test
 ```
+
+### Frontend Tests
+
+```
+cd frontend
+npm run test
+```

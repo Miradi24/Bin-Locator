@@ -1,6 +1,6 @@
 import emailJs from '@emailjs/browser';
 import { useState } from 'react';
-import { Alert, StyleSheet, TextInput } from 'react-native';
+import { Alert, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -159,13 +159,14 @@ export default function ContactScreen() {
                     {errors.message ? <ThemedText style={styles.errorText}>{errors.message}</ThemedText> : null}
                 </ThemedView>
 
-                <ThemedView
+                <TouchableOpacity
+                    testID='submit-button'
                     style={[styles.submitButton, isSubmitting && styles.submitButtonDisabled]}
-                    onTouchEnd={!isSubmitting ? handleSubmit : undefined}>
+                    onPress={!isSubmitting ? handleSubmit : undefined}>
                     <ThemedText style={styles.submitButtonText}>
                         {isSubmitting ? 'Sending...' : 'Send Message'}
                     </ThemedText>
-                </ThemedView>
+                </TouchableOpacity>
             </ThemedView>
         </ParallaxScrollView>
     );
