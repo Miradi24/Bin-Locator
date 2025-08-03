@@ -52,3 +52,12 @@ cd frontend
 npm install
 npx expo start
 ```
+
+## 🧪 Running Tests
+
+### Backend Tests
+
+```
+cd backend
+npm run test
+```

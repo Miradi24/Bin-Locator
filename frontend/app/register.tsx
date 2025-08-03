@@ -39,7 +39,7 @@ export default function RegisterScreen() {
             {/* Make sure we don't show screen header */}
             <Stack.Screen options={{ headerShown: false }} />
             <ThemedView style={styles.container}>
-                <ThemedText style={styles.title}>Register</ThemedText>
+                <ThemedText style={styles.title}>Register Account</ThemedText>
                 <TextInput
                     placeholderTextColor='#999'
                     style={styles.input}
